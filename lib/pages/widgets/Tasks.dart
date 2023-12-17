@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:planner/pages/Task.dart';
+import 'package:planner/pages/widgets/Task.dart';
 
 Widget Tasks(context) {
   List<List<String>> list = [
@@ -7,9 +7,6 @@ Widget Tasks(context) {
     ['1', 'Reunião de planejamento', '10:00 - 11:00', 'Remoto'], 
     ['2', 'Reunião de suporte web', '10:00 - 11:00', 'Remoto'], 
     ['3', 'Aula de yoga', '10:00 - 11:00', 'Presencial'], 
-    ['2', 'Live da Ismeiow', '10:00 - 11:00', 'Presencial'], 
-    ['2', 'Live da Ismeiow', '10:00 - 11:00', 'Presencial'], 
-    ['2', 'Live da Ismeiow', '10:00 - 11:00', 'Presencial'], 
   ];
 
   return Container(

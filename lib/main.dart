@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:planner/pages/Tasks.dart';
+import 'package:planner/pages/widgets/Tasks.dart';
 
 void main() {
   runApp(const MyApp());
