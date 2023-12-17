@@ -45,12 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
         ),),
       body: 
-      // Column(
-      //   children: [
-          // IconButton(onPressed: _incrementCounter, icon: const Icon(Icons.arrow_drop_down)),
-          Tasks(context),
-        // ],
-      // ),
+        Tasks(context),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
