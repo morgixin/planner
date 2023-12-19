@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'colors.dart';
 import 'pages/Home.dart';
+import 'package:planner/pages/Welcome.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Inter',
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Planner Home Page'),
+      home: const Welcome(),
     );
   }
 }
