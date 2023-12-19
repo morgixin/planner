@@ -25,10 +25,6 @@ class _WelcomeHome extends State<Welcome> {
 }
 
 Widget _WelcomeScreen (context) {
-  click() {
-    print('ai! me c.licou mane');
-  }
-
   // double buttonWidth = MediaQuery.of(context).size.width*0.8;
   TextStyle h3_white = TextStyle(fontFamily: 'Inter', fontWeight: FontWeight.w900, fontSize: 18, color: Colors.white);
   TextStyle h3_orange = TextStyle(fontFamily: 'Inter', fontWeight: FontWeight.w900, fontSize: 18, color: Theme.of(context).colorScheme.error);
