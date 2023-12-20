@@ -3,17 +3,17 @@ import 'package:planner/pages/widgets/NewEvent.dart';
 import 'package:planner/pages/widgets/Tasks.dart';
 
 class DashboardTasks extends StatefulWidget {
-  List<List<String>>? list;
-  String? name;
+  final List<dynamic>? list;
+  final String? name;
+  final List<dynamic>? taskList;
 
-  DashboardTasks({super.key, this.list, this.name});
+  DashboardTasks({Key? key, this.list, this.name, this.taskList});
 
   @override
   State<DashboardTasks> createState() => _DashboardTasksState();
 }
 
 class _DashboardTasksState extends State<DashboardTasks> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,15 +33,23 @@ class _DashboardTasksState extends State<DashboardTasks> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Confira tarefas em", style: const TextStyle(
-                      color: Color.fromRGBO(255, 255, 255, 0.9),
-                      fontWeight: FontWeight.w400,
-                      fontSize: 16),),
-                    Text("${widget.name}", style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 24),),
-                    ]
+                    Text(
+                      "Confira tarefas em",
+                      style: const TextStyle(
+                        color: Color.fromRGBO(255, 255, 255, 0.9),
+                        fontWeight: FontWeight.w400,
+                        fontSize: 16,
+                      ),
+                    ),
+                    Text(
+                      "${widget.name}",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 24,
+                      ),
+                    ),
+                  ],
                 )
               ],
             ),
@@ -51,18 +59,47 @@ class _DashboardTasksState extends State<DashboardTasks> {
       ),
       body: Container(
         padding: const EdgeInsets.only(top: 20),
-        decoration: const BoxDecoration(color: Colors.white,
-          borderRadius:
-            BorderRadius.only(
-              topLeft: Radius.circular(18),
-              topRight: Radius.circular(18),),
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(18),
+            topRight: Radius.circular(18),
+          ),
         ),
-        child: Tasks(widget.list!)),
+        child: Tasks(widget.list),
+      ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () { Navigator.push(context,  MaterialPageRoute(builder: (context) => EventCreator())); },
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => EventCreator(),
+            ),
+          );
+        },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ),
+    );
+  }
+}
+
+class Tasks extends StatelessWidget {
+  final List<dynamic>? tasks;
+
+  Tasks(this.tasks);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: tasks?.length ?? 0,
+      itemBuilder: (context, index) {
+        var task = tasks![index];
+        return ListTile(
+          title: Text(task['title'] ?? 'Sem título'),
+          // Adicione outras propriedades da tarefa conforme necessário.
+        );
+      },
     );
   }
 }
