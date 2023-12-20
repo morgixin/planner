@@ -31,7 +31,7 @@ class _EventCreatorState extends State<EventCreator> {
       body: SingleChildScrollView(
         child: Container(
           width: MediaQuery.of(context).size.width,
-          height:MediaQuery.of(context).size.height*0.87,
+          //height:MediaQuery.of(context).size.height*0.87,
           padding: const EdgeInsets.only(top: 40),
           decoration: const BoxDecoration(color: Colors.white,
             borderRadius:

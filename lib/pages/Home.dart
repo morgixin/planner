@@ -67,7 +67,7 @@ class _HomePageState extends State<HomePage> {
                       fontSize: 18),)
                 ],
               ),
-              IconButton(onPressed: () => print('asd'), icon: Icon(Icons.search)),
+              IconButton(onPressed: () => print('pesquisa clicada'), icon: Icon(Icons.search)),
             ],
           ),
         ),),
