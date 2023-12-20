@@ -25,7 +25,6 @@ class DatabaseHelper {
     final path = join(databasePath, "data.db");
 
     if (Platform.isWindows) {
-      // Change default factory on the web
       databaseFactory = databaseFactoryFfiWeb;
     }
 

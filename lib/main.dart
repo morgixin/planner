@@ -8,10 +8,7 @@ import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
 import 'package:sqflite_common_ffi_web/src/sw/constants.dart';
 import 'package:sqflite/sqflite.dart';
 
-Future main() async {
-  sqfliteFfiInit();
-
-  databaseFactory = databaseFactoryFfi;
+void main() {
   runApp(const MyApp());
 }
 
