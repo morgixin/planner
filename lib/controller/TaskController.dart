@@ -4,14 +4,19 @@ import 'package:flutter/material.dart';
 import '../sqlite/database_helper.dart';
 import '../model/Task.dart';
 
-
 class TaskPlannerController {
   DatabaseHelper dbHelper = DatabaseHelper();
-
 
   Future<void> addTask(Task task) async {
     var db = await dbHelper.db;
     await db.insert('task', task.toMap());
+  }
+
+  Future<List<Map<String, dynamic>>> getTasksByBoardId(String boardId) async {
+    var db = await dbHelper.db;
+    String sql = "SELECT * FROM task WHERE board_id = ?";
+    List<dynamic> values = [boardId];
+    return await db.rawQuery(sql, values);
   }
 
   Future<List<Task>> getTasksForBoard(int userId, int boardId) async {
@@ -37,9 +42,7 @@ class TaskPlannerController {
     return await db.rawQuery(sql);
   }
 
-
   // outros metodos que da pra adicionar(updateTask, deleteTask, etc.)
-
 
   // Método de exemplo para obter tarefas para um mês específico
   Future<List<Map<String, dynamic>>> getTasksForMonth(String month) async {
