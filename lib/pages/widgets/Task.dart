@@ -45,6 +45,7 @@ Widget Task(list, context) {
                     height: 73,
                     width: MediaQuery.of(context).size.width*0.8,
                     child: ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
                       itemCount: list.length,
                       itemBuilder: (c, index) {
                         if (index != 0) {

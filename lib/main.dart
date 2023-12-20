@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'colors.dart';
-import 'pages/Home.dart';
+import 'package:planner/colors.dart';
+import 'package:planner/pages/Home.dart';
 import 'package:planner/pages/Welcome.dart';
 
 void main() {
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Inter',
         useMaterial3: true,
       ),
-      home: const Welcome(),
+      home: const HomePage(),
     );
   }
 }
