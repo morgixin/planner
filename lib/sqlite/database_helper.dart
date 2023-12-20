@@ -4,7 +4,6 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {
-  static final tableName = "user";
   final databaseName = "auth.db";
   static final DatabaseHelper _instance = DatabaseHelper.internal();
   static Database? _db;
