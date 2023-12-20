@@ -13,55 +13,40 @@ class DashboardTasks extends StatefulWidget {
 }
 
 class _DashboardTasksState extends State<DashboardTasks> {
-  // int _counter = 0;
-  // void _incrementCounter() {
-  //   setState(() {
-  //     _counter++;
-  //   });
-  // }
-
-  // int _selectedIndex = 0;
-  // void _onItemTapped(int index) {
-  //   setState(() {
-  //     _selectedIndex = index;
-  //   });
-  // }
-
-  // List<Widget> _widgetOptions = <Widget>[ Boards(), Next(), Concluded(), Profile() ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leadingWidth: 30,
         backgroundColor: Theme.of(context).colorScheme.background,
-        toolbarHeight: 140,
+        toolbarHeight: 80,
         foregroundColor: Colors.white,
-        title: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text("Bom dia,", style: TextStyle(
-                      color: Color.fromRGBO(255, 255, 255, 0.7),
-                      fontWeight: FontWeight.w300,
-                      fontSize: 18),),
-                  Text("daniel!", style: TextStyle(
-                      color: Theme.of(context).colorScheme.onBackground,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 28),),
-                  const SizedBox(height: 20,),
-                  Text("Confira o que há em ${widget.name}", style: const TextStyle(
-                      color: Color.fromRGBO(255, 255, 255, 0.7),
-                      fontWeight: FontWeight.w300,
-                      fontSize: 18),)
-                ],
-              ),
-              IconButton(onPressed: () => print('asd'), icon: Icon(Icons.search))
-            ],
-          ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Confira tarefas em", style: const TextStyle(
+                      color: Color.fromRGBO(255, 255, 255, 0.9),
+                      fontWeight: FontWeight.w400,
+                      fontSize: 16),),
+                    Text("${widget.name}", style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 24),),
+                    ]
+                )
+              ],
+            ),
+            IconButton(onPressed: () => print('asd'), icon: Icon(Icons.search))
+          ],
         ),
       ),
       body: Container(

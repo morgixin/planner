@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../model/user.dart';
+import '../model/User.dart';
 import 'Home.dart';
 import 'package:planner/controller/LoginController.dart';
 
@@ -132,7 +132,7 @@ class _LoginScreenHome extends State<Login> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => MyHomePage(user: user)),
+                                builder: (context) => HomePage(user: user)),
                           );
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(

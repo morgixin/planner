@@ -1,5 +1,5 @@
 import '../sqlite/database_helper.dart';
-import '../model/user.dart';
+import '../model/User.dart';
 
 class LoginController {
   DatabaseHelper con = DatabaseHelper();
@@ -19,7 +19,7 @@ class LoginController {
   Future<User> getLogin(String email, String password) async {
     var db = await con.db;
     String sql = """
-      SELECT * FROM user WHERE email = '${email}' AND password = '${password}' 
+      SELECT * FROM user WHERE email = '$email' AND password = '$password' 
     """;
 
     var res = await db.rawQuery(sql);

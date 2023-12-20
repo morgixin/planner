@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 User usersFromMap(String str) => User.fromMap(json.decode(str));
@@ -33,5 +32,4 @@ class User {
     "name": name,
     "password": password,
   };
-
 }
