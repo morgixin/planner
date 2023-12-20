@@ -1,36 +1,37 @@
 
 import 'dart:convert';
 
-Users usersFromMap(String str) => Users.fromMap(json.decode(str));
+User usersFromMap(String str) => User.fromMap(json.decode(str));
 
-String usersToMap(Users data) => json.encode(data.toMap());
+String usersToMap(User data) => json.encode(data.toMap());
 
-class Users {
-  final int? usrId;
-  final String? usrName;
+class User {
+  final int? id;
+  final String? name;
   final String email;
   final String password;
 
-  Users({
-    this.usrId,
-    this.usrName,
+  User({
+    this.id,
+    this.name,
     required this.email,
     required this.password,
   });
 
   //These json value must be same as your column name in database that we have already defined
   //one column didn't match
-  factory Users.fromMap(Map<String, dynamic> json) => Users(
-    usrId: json["usrId"],
+  factory User.fromMap(Map<String, dynamic> json) => User(
+    id: json["id"],
     email: json["email"],
-    usrName: json["usrName"],
-    password: json["usrPassword"],
+    name: json["name"],
+    password: json["password"],
   );
 
   Map<String, dynamic> toMap() => {
-    "usrId": usrId,
+    "id": id,
     "email": email,
-    "usrName": usrName,
-    "usrPassword": password,
+    "name": name,
+    "password": password,
   };
+
 }
