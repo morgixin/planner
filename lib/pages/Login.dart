@@ -62,111 +62,113 @@ class _LoginScreenHome extends State<Login> {
       appBar: AppBar(
           backgroundColor: Colors.white,
           foregroundColor: Theme.of(context).colorScheme.error),
-      body: Container(
-        alignment: Alignment.center,
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.83,
-                child: Text(
-                  'Entrar',
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.error,
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w900,
-                    fontSize: 40,
+      body: SingleChildScrollView(
+        child: Container(
+          alignment: Alignment.center,
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.83,
+                  child: Text(
+                    'Entrar',
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.error,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w900,
+                      fontSize: 40,
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(height: 40),
-              Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.83,
-                          child: Text(
-                            "E-mail",
-                            style: TextStyle(fontSize: 18),
-                          )),
-                      InputField(context, "Digite seu e-mail",
-                          Icons.account_circle, false, _emailController),
-                      SizedBox(height: 20),
-                      SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.83,
-                          child: Text(
-                            "Senha",
-                            style: TextStyle(fontSize: 18),
-                          )),
-                      InputField(context, "Digite sua senha", Icons.lock, true,
-                          _passwordController)
-                    ],
-                  )),
-              SizedBox(height: 50),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.83,
-                height: 54,
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                          Theme.of(context).colorScheme.error),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                      ))),
-                  onPressed: () async {
-                    final form = _formKey.currentState;
-
-                    if (form!.validate()) {
-                      form.save();
-
-                      try {
-                        User user = (await controller.getLogin(
-                            _email!, _password!)) as User;
-                        if (user.id != -1) {
-                          savePref(1, user.email, user.password);
-                          _loginStatus = LoginStatus.signIn;
-
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => HomePage(user: user)),
-                          );
-                        } else {
+                SizedBox(height: 40),
+                Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.83,
+                            child: Text(
+                              "E-mail",
+                              style: TextStyle(fontSize: 18),
+                            )),
+                        InputField(context, "Digite seu e-mail",
+                            Icons.account_circle, false, _emailController),
+                        SizedBox(height: 20),
+                        SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.83,
+                            child: Text(
+                              "Senha",
+                              style: TextStyle(fontSize: 18),
+                            )),
+                        InputField(context, "Digite sua senha", Icons.lock, true,
+                            _passwordController)
+                      ],
+                    )),
+                SizedBox(height: 50),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.83,
+                  height: 54,
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            Theme.of(context).colorScheme.error),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                        ))),
+                    onPressed: () async {
+                      final form = _formKey.currentState;
+        
+                      if (form!.validate()) {
+                        form.save();
+        
+                        try {
+                          User user = (await controller.getLogin(
+                              _email!, _password!)) as User;
+                          if (user.id != -1) {
+                            savePref(1, user.email, user.password);
+                            _loginStatus = LoginStatus.signIn;
+        
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HomePage(user: user)),
+                            );
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text('Usuário não registrado!')),
+                            );
+                          }
+                        } catch (e) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content: Text('Usuário não registrado!')),
+                            SnackBar(content: Text(e.toString())),
                           );
                         }
-                      } catch (e) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text(e.toString())),
-                        );
                       }
-                    }
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Entrar",
-                        style: TextStyle(
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w900,
-                            fontSize: 18,
-                            color: Colors.white),
-                      ),
-                      Icon(
-                        Icons.chevron_right,
-                        color: Colors.white,
-                      ),
-                    ],
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Entrar",
+                          style: TextStyle(
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w900,
+                              fontSize: 18,
+                              color: Colors.white),
+                        ),
+                        Icon(
+                          Icons.chevron_right,
+                          color: Colors.white,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ]),
+              ]),
+        ),
       ),
     );
   }
