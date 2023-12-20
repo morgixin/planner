@@ -1,25 +1,23 @@
 import 'package:flutter/material.dart';
+
 import 'package:planner/pages/widgets/NewEvent.dart';
 import 'package:planner/pages/widgets/Profile.dart';
 import 'package:planner/pages/widgets/Next.dart';
 import 'package:planner/pages/widgets/Dashboard.dart';
 import 'package:planner/pages/widgets/Concluded.dart';
+import 'package:planner/controller/LoginController.dart';
+import 'package:planner/pages/widgets/Tasks.dart';
+import '../model/user.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key, this.user});
+  final User? user;
+  
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  // int _counter = 0;
-  // void _incrementCounter() {
-  //   setState(() {
-  //     _counter++;
-  //   });
-  // }
-
   int _selectedIndex = 0;
   void _onItemTapped(int index) {
     setState(() {
@@ -53,7 +51,7 @@ class _HomePageState extends State<HomePage> {
                       color: Color.fromRGBO(255, 255, 255, 0.7),
                       fontWeight: FontWeight.w300,
                       fontSize: 18),),
-                  Text("daniel!", style: TextStyle(
+                  Text("${widget.user!.name}!", style: TextStyle(
                       color: Theme.of(context).colorScheme.onBackground,
                       fontWeight: FontWeight.bold,
                       fontSize: 28),),

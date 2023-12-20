@@ -1,58 +1,29 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../model/user.dart';
-import 'Home.dart';
-import 'package:planner/controller/LoginController.dart';
+import '../controller/LoginController.dart';
+import '../pages/Login.dart';
 
-enum LoginStatus { notSignIn, signIn }
-
-class Login extends StatefulWidget {
-  const Login({super.key});
+class SignUp extends StatefulWidget {
+  const SignUp({super.key});
 
   @override
-  State<Login> createState() => _LoginScreenHome();
+  State<SignUp> createState() => _SignInScreenHome();
 }
 
-class _LoginScreenHome extends State<Login> {
+class _SignInScreenHome extends State<SignUp> {
+  TextEditingController _nameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
 
-  LoginStatus _loginStatus = LoginStatus.notSignIn;
-  String? _email, _password;
-  final _formKey = GlobalKey<FormState>();
+  String? _name, _email, _password;
   late LoginController controller;
-  dynamic value;
-
-  _LoginScreenHome() {
-    this.controller = LoginController();
-  }
-
-  getPref() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-
-    setState(() {
-      value = preferences.getInt("value");
-
-      _loginStatus = value == 1 ? LoginStatus.signIn : LoginStatus.notSignIn;
-    });
-  }
-
-  savePref(int value, String user, String pass) async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-
-    setState(() {
-      preferences.setInt("value", value);
-      preferences.setString("user", user);
-      preferences.setString("pass", pass);
-    });
-  }
 
   @override
   void initState() {
     super.initState();
-    getPref();
+    controller = LoginController();
   }
 
   @override
@@ -71,7 +42,7 @@ class _LoginScreenHome extends State<Login> {
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.83,
                 child: Text(
-                  'Entrar',
+                  'Cadastro',
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.error,
                     fontFamily: 'Inter',
@@ -81,29 +52,32 @@ class _LoginScreenHome extends State<Login> {
                 ),
               ),
               SizedBox(height: 40),
-              Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.83,
-                          child: Text(
-                            "E-mail",
-                            style: TextStyle(fontSize: 18),
-                          )),
-                      InputField(context, "Digite seu e-mail",
-                          Icons.account_circle, false, _emailController),
-                      SizedBox(height: 20),
-                      SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.83,
-                          child: Text(
-                            "Senha",
-                            style: TextStyle(fontSize: 18),
-                          )),
-                      InputField(context, "Digite sua senha", Icons.lock, true,
-                          _passwordController)
-                    ],
+              SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.83,
+                  child: Text(
+                    "Nome de usuário",
+                    style: TextStyle(fontSize: 18),
                   )),
+              InputField(context, "Digite aqui um apelido",
+                  Icons.account_circle, false, _nameController),
+              SizedBox(height: 20),
+              SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.83,
+                  child: Text(
+                    "E-mail",
+                    style: TextStyle(fontSize: 18),
+                  )),
+              InputField(context, "Digite aqui seu e-mail", Icons.email, false,
+                  _emailController),
+              SizedBox(height: 20),
+              SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.83,
+                  child: Text(
+                    "Senha",
+                    style: TextStyle(fontSize: 18),
+                  )),
+              InputField(context, "Digite aqui sua senha", Icons.lock, true,
+                  _passwordController),
               SizedBox(height: 50),
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.83,
@@ -117,41 +91,43 @@ class _LoginScreenHome extends State<Login> {
                         borderRadius: BorderRadius.circular(12.0),
                       ))),
                   onPressed: () async {
-                    final form = _formKey.currentState;
+                    String name = _nameController.text;
+                    String email = _emailController.text;
+                    String password = _passwordController.text;
 
-                    if (form!.validate()) {
-                      form.save();
-
-                      try {
-                        User user = (await controller.getLogin(
-                            _email!, _password!)) as User;
-                        if (user.id != -1) {
-                          savePref(1, user.email, user.password);
-                          _loginStatus = LoginStatus.signIn;
-
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => MyHomePage(user: user)),
-                          );
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content: Text('Usuário não registrado!')),
-                          );
-                        }
-                      } catch (e) {
+                    try {
+                      User user =
+                          (await controller.getLogin(email, password)) as User;
+                      if (user.id != -1) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text(e.toString())),
+                          const SnackBar(content: Text('Usuário já existe!')),
+                        );
+                      } else {
+                        User user =
+                            User(name: name, email: email, password: password);
+                        int res = await controller.saveUser(user);
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                              content: Text('Usuário salvo com sucesso!')),
+                        );
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Login()),
                         );
                       }
+                    } catch (e) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text(e.toString())),
+                      );
                     }
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Entrar",
+                        "Me juntar",
                         style: TextStyle(
                             fontFamily: 'Inter',
                             fontWeight: FontWeight.w900,
@@ -197,9 +173,11 @@ class _LoginScreenHome extends State<Login> {
             return null;
           },
           onSaved: (value) {
-            if (hint == 'Digite seu e-mail') {
+            if (hint == "Digite aqui um apelido") {
+              _name = value;
+            } else if (hint == "Digite aqui seu e-mail") {
               _email = value;
-            } else if (hint == 'Digite sua senha') {
+            } else if (hint == "Digite aqui sua senha") {
               _password = value;
             }
           },
