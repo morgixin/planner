@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:planner/pages/widgets/Tasks.dart';
+import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
+import '../sqlite/database_helper.dart';
+import '../JSON/users.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({super.key, required this.title, this.profile});
   final String title;
+  final Users? profile;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
