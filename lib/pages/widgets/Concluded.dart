@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:planner/pages/widgets/Tasks.dart';
+import 'package:planner/pages/widgets/DoneTasks.dart';
 
 Widget Concluded() {
   bool showDetails = false;
@@ -16,5 +16,5 @@ Widget Concluded() {
     ['3', 'Aula de yoga', '10:00 - 11:00', 'Presencial'], 
   ];
 
-  return Tasks(taskList.skip(3).take(7).toList());
+  return DoneTasks(taskList.take(7).toList());
 }
