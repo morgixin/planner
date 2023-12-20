@@ -1,13 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:planner/model/User.dart';
+import 'package:planner/pages/DashboardTasks.dart';
+import 'package:planner/pages/widgets/Dashboard.dart';
 import '../sqlite/database_helper.dart';
 import '../model/Task.dart';
-
+import '../model/TaskBoard.dart';
 
 class TaskPlannerController {
   DatabaseHelper dbHelper = DatabaseHelper();
-
 
   Future<void> addTask(Task task) async {
     var db = await dbHelper.db;
@@ -23,10 +24,10 @@ class TaskPlannerController {
   }
 
   // Criar novo quadro de tarefas
-  createTaskBoard(String name, int color) async {
+  createTaskBoard(TaskBoard taskBoard) async {
     var db = await dbHelper.db;
     String sql = "INSERT INTO task_board(name, color) VALUES(?, ?)";
-    List<dynamic> values = [name, color];
+    List<dynamic> values = [taskBoard.name, taskBoard.color];
     await db.rawInsert(sql, values);
   }
 
@@ -37,9 +38,7 @@ class TaskPlannerController {
     return await db.rawQuery(sql);
   }
 
-
   // outros metodos que da pra adicionar(updateTask, deleteTask, etc.)
-
 
   // Método de exemplo para obter tarefas para um mês específico
   Future<List<Map<String, dynamic>>> getTasksForMonth(String month) async {
@@ -64,6 +63,31 @@ class TaskPlannerController {
         "SELECT * FROM task WHERE date BETWEEN date('now') AND date('now', '+7 days')";
     return await db.rawQuery(sql);
   }
+
+  updateTask(Task task, BuildContext context, User user) async {
+    if (task.title != "" && task.board_id != "") {
+      var database = await dbHelper.db;
+
+      await database!
+          .update("task", task.toMap(), where: "id=?", whereArgs: [task.id]);
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => DashboardTasks()),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Preencha todos os campos!')),
+      );
+    }
+  }
+
+  deleteById(int id) async {
+    var db = await dbHelper.db;
+    await db.rawDelete("DELETE FROM task WHERE id = ${id};");
+  }
+
+  deleteTaskBoardById(int id) async {}
 
   // outros requerimentos também
   // ...
