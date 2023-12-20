@@ -48,59 +48,45 @@ class _HomePageState extends State<HomePage> {
         toolbarHeight: 140,
         title: Padding(
           padding: const EdgeInsets.all(8.0),
-          child:
-              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "Bom dia,",
-                  style: TextStyle(
-                      color: Color.fromRGBO(255, 255, 255, 0.7),
-                      fontWeight: FontWeight.w300,
-                      fontSize: 18),
-                ),
-                Text(
-                  "${widget.user!.name}!",
-                  style: TextStyle(
-                      color: Theme.of(context).colorScheme.onBackground,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 28),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const Text(
-                  "Confira seus quadros",
-                  style: TextStyle(
-                      color: Color.fromRGBO(255, 255, 255, 0.7),
-                      fontWeight: FontWeight.w300,
-<<<<<<< Updated upstream
-                      fontSize: 18),)
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "Bom dia,",
+                    style: TextStyle(
+                        color: Color.fromRGBO(255, 255, 255, 0.7),
+                        fontWeight: FontWeight.w300,
+                        fontSize: 18),
+                  ),
+                  Text(
+                    "${widget.user!.name}!",
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.onBackground,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 28),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Text(
+                    "Confira seus quadros",
+                    style: TextStyle(
+                        color: Color.fromRGBO(255, 255, 255, 0.7),
+                        fontWeight: FontWeight.w300,
+                        fontSize: 18),
+                  )
                 ],
               ),
-              IconButton(onPressed: () => print('pesquisa clicada'), icon: Icon(Icons.search)),
+              IconButton(
+                  onPressed: () => print('pesquisa clicada'),
+                  icon: Icon(Icons.search)),
             ],
           ),
-        ),),
-=======
-                      fontSize: 18),
-                )
-              ],
-            ),
-            IconButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SearchPage()),
-                );
-              },
-              icon: Icon(Icons.search),
-            ),
-          ]),
         ),
       ),
->>>>>>> Stashed changes
       body: Container(
           padding: const EdgeInsets.only(top: 20),
           decoration: const BoxDecoration(
