@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'colors.dart';
-import 'pages/Home.dart';
 import 'package:planner/pages/Welcome.dart';
 
 void main() {
