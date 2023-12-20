@@ -10,6 +10,7 @@
 .svn/
 migrate_working_dir/
 test/
+lib/pages/Old.dart
 
 # IntelliJ related
 *.iml

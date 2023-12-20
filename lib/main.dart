@@ -1,8 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'colors.dart';
 import 'sqlite/database_helper.dart';
+import 'package:planner/colors.dart';
+import 'package:planner/pages/Home.dart';
 import 'package:planner/pages/Welcome.dart';
 import 'package:sqflite/sqflite.dart';
 
