@@ -15,6 +15,13 @@ class TaskPlannerController {
     await db.insert('task', task.toMap());
   }
 
+  Future<List<Map<String, dynamic>>> getTasksByBoardId(String boardId) async {
+    var db = await dbHelper.db;
+    String sql = "SELECT * FROM task WHERE board_id = ?";
+    List<dynamic> values = [boardId];
+    return await db.rawQuery(sql, values);
+  }
+
   Future<List<Task>> getTasksForBoard(int userId, int boardId) async {
     var db = await dbHelper.db;
     String sql = "SELECT * FROM task WHERE user_id = ? AND board_id = ?";
