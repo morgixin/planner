@@ -7,9 +7,8 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:sqflite/sqflite.dart';
 
 Future main() async {
-  if (Platform.isWindows || Platform.isLinux) {
-    sqfliteFfiInit();
-  }
+  sqfliteFfiInit();
+
   databaseFactory = databaseFactoryFfi;
   runApp(const MyApp());
 }
