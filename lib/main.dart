@@ -1,8 +1,16 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'colors.dart';
 import 'package:planner/pages/Welcome.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+import 'package:sqflite/sqflite.dart';
 
-void main() {
+Future main() async {
+  if (Platform.isWindows || Platform.isLinux) {
+    sqfliteFfiInit();
+  }
+  databaseFactory = databaseFactoryFfi;
   runApp(const MyApp());
 }
 
