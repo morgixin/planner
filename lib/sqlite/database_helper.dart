@@ -24,10 +24,6 @@ class DatabaseHelper {
 
     final path = join(databasePath, "data.db");
 
-    if (Platform.isWindows) {
-      databaseFactory = databaseFactoryFfiWeb;
-    }
-
     Database db = await openDatabase(path, version: 1, onCreate: _onCreateDb);
     return db;
   }
