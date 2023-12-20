@@ -68,31 +68,4 @@ class DatabaseHelper {
           FOREIGN KEY(board_id) REFERENCES task_board(id)
       );
     """;
-
-  //Function methods
-
-  //Authentication
-  Future<bool> authenticate(User usr) async {
-    final Database db = await initDb();
-    var result = await db.rawQuery(
-        "select * from users where email = '${usr.email}' AND usrPassword = '${usr.password}' ");
-    if (result.isNotEmpty) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  //Sign up
-  Future<int> createUser(User usr) async {
-    final Database db = await initDb();
-    return db.insert("user", usr.toMap());
-  }
-
-  //Get current User details
-  Future<User?> getUser(String usrEmail) async {
-    final Database db = await initDb();
-    var res = await db.query("user", where: "email = ?", whereArgs: [usrEmail]);
-    return res.isNotEmpty ? User.fromMap(res.first) : null;
-  }
 }
