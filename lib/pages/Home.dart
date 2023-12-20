@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:planner/pages/widgets/Profile.dart';
+import 'package:planner/pages/widgets/Next.dart';
 import 'package:planner/pages/widgets/Dashboard.dart';
+import 'package:planner/pages/widgets/Concluded.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -23,6 +26,13 @@ class _HomePageState extends State<HomePage> {
       _selectedIndex = index;
     });
   }
+
+  List<Widget> _widgetOptions = <Widget>[
+    Boards(),
+    Next(),
+    Concluded(),
+    Profile(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -62,11 +72,10 @@ class _HomePageState extends State<HomePage> {
         padding: const EdgeInsets.only(top: 20),
         decoration: const BoxDecoration(color: Colors.white,
           borderRadius:
-            BorderRadius.only(
-              topLeft: Radius.circular(18),
-              topRight: Radius.circular(18),),
+            BorderRadius.only( topLeft: Radius.circular(18), topRight: Radius.circular(18),),
         ),
-        child: Boards(context)),
+        child: _widgetOptions.elementAt(_selectedIndex)
+        ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',

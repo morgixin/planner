@@ -69,7 +69,7 @@ class _DashboardTasksState extends State<DashboardTasks> {
               topLeft: Radius.circular(18),
               topRight: Radius.circular(18),),
         ),
-        child: Tasks(context, widget.list!)),
+        child: Tasks(widget.list!)),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',

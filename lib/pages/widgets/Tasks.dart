@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:planner/pages/widgets/Task.dart';
 
-Widget Tasks(context, List<List<String>> list) {
+Widget Tasks(List<List<String>> list) {
   return Container(
     decoration: const BoxDecoration(color: Colors.white, 
       borderRadius: 

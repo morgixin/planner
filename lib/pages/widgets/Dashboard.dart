@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:planner/pages/DashboardTasks.dart';
 
-Widget Boards(context) {
-  bool showDetails = false;
-
+Widget Boards() {
   List<List<dynamic>> list = [
     ['0', 'Trabalho'], 
     ['1', 'Autocuidado'],
@@ -53,10 +51,12 @@ Widget Boards(context) {
             child: TextButton(
               onPressed: () {
                 Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => DashboardTasks(list: taskList.where((e) => e[0] == index.toString()).toList(),))
+                  MaterialPageRoute(builder: (context) => DashboardTasks(list: taskList.where((e) => e[0] == index.toString()).toList()))
                 );
               },
-              child: Board(list[index], context)),
+              child: Board(list[index], 
+                taskList.where((element) => element[0] == index.toString()).toList(),
+              context)),
           ),
         );
       }
@@ -64,7 +64,9 @@ Widget Boards(context) {
   );
 }
 
-Widget Board(list, context) {
+Widget Board(List<dynamic> list, List<List<String>> taskList, context) {
+  String boardLength = taskList.length.toString();
+
   return Column(
     children: [
       SizedBox(
@@ -78,7 +80,11 @@ Widget Board(list, context) {
               Text(list[1], style: const TextStyle(
                   fontFamily: 'Inter', fontWeight: FontWeight.w500, fontSize: 20, color: Colors.black
                 ),),
-              const Text("3 tarefas", style: TextStyle(fontSize: 16, color: Colors.black),)
+              if (boardLength != '1')
+                Text("$boardLength tarefas", style: TextStyle(fontSize: 16, color: Colors.black),)
+              else
+                Text("$boardLength tarefa", style: TextStyle(fontSize: 16, color: Colors.black),)
+
             ],
           ),
         ),
