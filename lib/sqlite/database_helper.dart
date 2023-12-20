@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
+import 'package:sqflite_common_ffi_web/src/sw/constants.dart';
 
 class DatabaseHelper {
   static final tableName = "user";
@@ -19,6 +23,11 @@ class DatabaseHelper {
     final databasePath = await getDatabasesPath();
 
     final path = join(databasePath, "data.db");
+
+    if (Platform.isWindows) {
+      // Change default factory on the web
+      databaseFactory = databaseFactoryFfiWeb;
+    }
 
     Database db = await openDatabase(path, version: 1, onCreate: _onCreateDb);
     return db;
