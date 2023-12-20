@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:planner/pages/widgets/Dashboard.dart';
+import 'package:planner/pages/widgets/Tasks.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class DashboardTasks extends StatefulWidget {
+  List<List<String>>? list;
+
+  DashboardTasks({super.key, this.list});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<DashboardTasks> createState() => _DashboardTasksState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _DashboardTasksState extends State<DashboardTasks> {
   int _counter = 0;
-
   void _incrementCounter() {
     setState(() {
       _counter++;
@@ -30,6 +31,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.background,
         toolbarHeight: 140,
+        foregroundColor: Colors.white,
         title: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
@@ -53,11 +55,12 @@ class _HomePageState extends State<HomePage> {
                       fontSize: 18),)
                 ],
               ),
-              SizedBox(width: MediaQuery.of(context).size.width*0.49),
-              const Icon(Icons.more_vert, color: Colors.white,),
+              SizedBox(width: MediaQuery.of(context).size.width*0.36),
+              const Icon(Icons.more_vert),
             ],
           ),
-        ),),
+        ),
+      ),
       body: Container(
         padding: const EdgeInsets.only(top: 20),
         decoration: const BoxDecoration(color: Colors.white,
@@ -66,7 +69,7 @@ class _HomePageState extends State<HomePage> {
               topLeft: Radius.circular(18),
               topRight: Radius.circular(18),),
         ),
-        child: Boards(context)),
+        child: Tasks(context, widget.list!)),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',

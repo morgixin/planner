@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Inter',
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: "home",),
+      home: const HomePage(),
     );
   }
 }
