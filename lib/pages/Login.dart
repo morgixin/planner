@@ -23,7 +23,7 @@ class _LoginScreenHome extends State<Login> {
   String? _email, _password;
   final _formKey = GlobalKey<FormState>();
   late LoginController controller;
-  var value;
+  dynamic value;
 
   _LoginScreenHome() {
     this.controller = LoginController();

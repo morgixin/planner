@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:planner/controller/LoginController.dart';
 import 'package:planner/pages/widgets/Tasks.dart';
 import '../model/user.dart';
 
@@ -38,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     fontSize: 18),
               ),
               Text(
-                "daniel!",
+                "${widget.user!.name}!",
                 style: TextStyle(
                     color: Theme.of(context).colorScheme.onBackground,
                     fontWeight: FontWeight.bold,
