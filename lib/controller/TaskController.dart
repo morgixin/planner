@@ -2,9 +2,25 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../sqlite/database_helper.dart';
+import '../model/Task.dart';
+
 
 class TaskPlannerController {
   DatabaseHelper dbHelper = DatabaseHelper();
+
+
+  Future<void> addTask(Task task) async {
+    var db = await dbHelper.db;
+    await db.insert('task', task.toMap());
+  }
+
+  Future<List<Task>> getTasksForBoard(int userId, int boardId) async {
+    var db = await dbHelper.db;
+    String sql = "SELECT * FROM task WHERE user_id = ? AND board_id = ?";
+    List<dynamic> values = [userId, boardId];
+    var result = await db.rawQuery(sql, values);
+    return result.map((map) => Task.fromMap(map)).toList();
+  }
 
   // Criar novo quadro de tarefas
   createTaskBoard(String name, int color) async {
@@ -21,33 +37,6 @@ class TaskPlannerController {
     return await db.rawQuery(sql);
   }
 
-  // Adicionar uma tarefa específica
-  addTask(int userId, int boardId, String title, String note, String date,
-      String startTime, String endTime, int isCompleted) async {
-    var db = await dbHelper.db;
-    String sql =
-        "INSERT INTO task(user_id, board_id, title, note, date, startTime, endTime, isCompleted) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
-    List<dynamic> values = [
-      userId,
-      boardId,
-      title,
-      note,
-      date,
-      startTime,
-      endTime,
-      isCompleted
-    ];
-    await db.rawInsert(sql, values);
-  }
-
-  // Obter tarefas para um usuário e quadro de tarefas específicos
-  Future<List<Map<String, dynamic>>> getTasksForBoard(
-      int userId, int boardId) async {
-    var db = await dbHelper.db;
-    String sql = "SELECT * FROM task WHERE user_id = ? AND board_id = ?";
-    List<dynamic> values = [userId, boardId];
-    return await db.rawQuery(sql, values);
-  }
 
   // outros metodos que da pra adicionar(updateTask, deleteTask, etc.)
 
