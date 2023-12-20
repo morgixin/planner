@@ -101,8 +101,8 @@ class _LoginScreenHome extends State<Login> {
                               "Senha",
                               style: TextStyle(fontSize: 18),
                             )),
-                        InputField(context, "Digite sua senha", Icons.lock, true,
-                            _passwordController)
+                        InputField(context, "Digite sua senha", Icons.lock,
+                            true, _passwordController)
                       ],
                     )),
                 SizedBox(height: 50),
@@ -113,23 +113,24 @@ class _LoginScreenHome extends State<Login> {
                     style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all<Color>(
                             Theme.of(context).colorScheme.error),
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12.0),
                         ))),
                     onPressed: () async {
                       final form = _formKey.currentState;
-        
+
                       if (form!.validate()) {
                         form.save();
-        
+
                         try {
                           User user = (await controller.getLogin(
                               _email!, _password!)) as User;
                           if (user.id != -1) {
                             savePref(1, user.email, user.password);
                             _loginStatus = LoginStatus.signIn;
-        
+
                             Navigator.push(
                               context,
                               MaterialPageRoute(
