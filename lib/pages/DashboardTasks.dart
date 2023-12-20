@@ -1,29 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:planner/pages/widgets/NewEvent.dart';
 import 'package:planner/pages/widgets/Tasks.dart';
 
 class DashboardTasks extends StatefulWidget {
   List<List<String>>? list;
+  String? name;
 
-  DashboardTasks({super.key, this.list});
+  DashboardTasks({super.key, this.list, this.name});
 
   @override
   State<DashboardTasks> createState() => _DashboardTasksState();
 }
 
 class _DashboardTasksState extends State<DashboardTasks> {
-  int _counter = 0;
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+  // int _counter = 0;
+  // void _incrementCounter() {
+  //   setState(() {
+  //     _counter++;
+  //   });
+  // }
 
-  int _selectedIndex = 0;
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+  // int _selectedIndex = 0;
+  // void _onItemTapped(int index) {
+  //   setState(() {
+  //     _selectedIndex = index;
+  //   });
+  // }
+
+  // List<Widget> _widgetOptions = <Widget>[ Boards(), Next(), Concluded(), Profile() ];
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +39,7 @@ class _DashboardTasksState extends State<DashboardTasks> {
         title: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,14 +53,13 @@ class _DashboardTasksState extends State<DashboardTasks> {
                       fontWeight: FontWeight.bold,
                       fontSize: 28),),
                   const SizedBox(height: 20,),
-                  const Text("Confira seus quadros", style: TextStyle(
+                  Text("Confira o que há em ${widget.name}", style: const TextStyle(
                       color: Color.fromRGBO(255, 255, 255, 0.7),
                       fontWeight: FontWeight.w300,
                       fontSize: 18),)
                 ],
               ),
-              SizedBox(width: MediaQuery.of(context).size.width*0.36),
-              const Icon(Icons.more_vert),
+              IconButton(onPressed: () => print('asd'), icon: Icon(Icons.search))
             ],
           ),
         ),
@@ -71,22 +74,9 @@ class _DashboardTasksState extends State<DashboardTasks> {
         ),
         child: Tasks(widget.list!)),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: () { Navigator.push(context,  MaterialPageRoute(builder: (context) => EventCreator())); },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        iconSize: 32,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.label_outline_rounded), label: 'Dashboard', backgroundColor: Colors.white,),
-          BottomNavigationBarItem(icon: Icon(Icons.access_time), label: 'Recentes', backgroundColor: Colors.white,),
-          BottomNavigationBarItem(icon: Icon(Icons.check), label: 'Concluídas', backgroundColor: Colors.white,),
-          BottomNavigationBarItem(icon: Icon(Icons.tag_faces_rounded), label: 'Perfil', backgroundColor: Colors.white,)
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Theme.of(context).colorScheme.error,
-        unselectedItemColor: Colors.black54,
-        onTap: _onItemTapped,
       ),
     );
   }

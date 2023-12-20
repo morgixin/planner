@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:planner/pages/widgets/NewEvent.dart';
 import 'package:planner/pages/widgets/Profile.dart';
 import 'package:planner/pages/widgets/Next.dart';
 import 'package:planner/pages/widgets/Dashboard.dart';
@@ -12,13 +13,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+  // int _counter = 0;
+  // void _incrementCounter() {
+  //   setState(() {
+  //     _counter++;
+  //   });
+  // }
 
   int _selectedIndex = 0;
   void _onItemTapped(int index) {
@@ -39,11 +39,12 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.background,
+        foregroundColor: Colors.white,
         toolbarHeight: 140,
         title: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,8 +64,7 @@ class _HomePageState extends State<HomePage> {
                       fontSize: 18),)
                 ],
               ),
-              SizedBox(width: MediaQuery.of(context).size.width*0.49),
-              const Icon(Icons.more_vert, color: Colors.white,),
+              IconButton(onPressed: () => print('asd'), icon: Icon(Icons.search)),
             ],
           ),
         ),),
@@ -77,8 +77,8 @@ class _HomePageState extends State<HomePage> {
         child: _widgetOptions.elementAt(_selectedIndex)
         ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
+        onPressed: () { Navigator.push(context,  MaterialPageRoute(builder: (context) => EventCreator())); },
+        tooltip: 'Add new event',
         child: const Icon(Icons.add),
       ),
       bottomNavigationBar: BottomNavigationBar(

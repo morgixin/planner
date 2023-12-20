@@ -51,7 +51,7 @@ Widget Boards() {
             child: TextButton(
               onPressed: () {
                 Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => DashboardTasks(list: taskList.where((e) => e[0] == index.toString()).toList()))
+                  MaterialPageRoute(builder: (context) => DashboardTasks(list: taskList.where((e) => e[0] == index.toString()).toList(), name: list[index][1]))
                 );
               },
               child: Board(list[index], 
