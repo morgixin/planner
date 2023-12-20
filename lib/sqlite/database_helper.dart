@@ -1,8 +1,6 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../model/user.dart';
-
 class DatabaseHelper {
   static final tableName = "user";
   final databaseName = "auth.db";
