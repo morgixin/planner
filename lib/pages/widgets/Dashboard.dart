@@ -16,58 +16,62 @@ Widget Boards() {
       } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
         return Text("Nenhum quadro de tarefas encontrado.");
       } else {
-        return Center(
-          child: ListView.builder(
-            itemCount: snapshot.data!.length,
-            itemBuilder: (context, index) {
-              Color? colour;
-              switch (snapshot.data![index]['color']) {
-                case 0:
-                  colour = Theme.of(context).colorScheme.primary;
-                  break;
-                case 1:
-                  colour = Theme.of(context).colorScheme.secondary;
-                  break;
-                case 2:
-                  colour = Theme.of(context).colorScheme.tertiary;
-                  break;
-                case 3:
-                  colour = Theme.of(context).colorScheme.surface;
-                  break;
-              }
+        return Container(
+            width: MediaQuery.of(context).size.width,
+            child: Center(
+              child: ListView.builder(
+                itemCount: snapshot.data!.length,
+                itemBuilder: (context, index) {
+                  Color? colour;
+                  switch (snapshot.data![index]['color']) {
+                    case 0:
+                      colour = Theme.of(context).colorScheme.primary;
+                      break;
+                    case 1:
+                      colour = Theme.of(context).colorScheme.secondary;
+                      break;
+                    case 2:
+                      colour = Theme.of(context).colorScheme.tertiary;
+                      break;
+                    case 3:
+                      colour = Theme.of(context).colorScheme.surface;
+                      break;
+                  }
 
-              return Padding(
-                padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: colour,
-                  ),
-                  child: TextButton(
-                    onPressed: () async {
-                      int boardId = snapshot.data![index]['id'];
-                      List<Map<String, dynamic>> taskList = await taskController
-                          .getTasksByBoardId(boardId.toString());
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => DashboardTasks(
-                            list: [snapshot.data![index]],
-                            name: snapshot.data![index]['name'],
-                            taskList: taskList
-                                .map((task) => task['title'].toString())
-                                .toList(),
-                          ),
-                        ),
-                      );
-                    },
-                    child: Board(snapshot.data![index], context),
-                  ),
-                ),
-              );
-            },
-          ),
-        );
+                  return Padding(
+                    padding:
+                        const EdgeInsets.only(left: 16, right: 16, top: 16),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: colour,
+                      ),
+                      child: TextButton(
+                        onPressed: () async {
+                          int boardId = snapshot.data![index]['id'];
+                          List<Map<String, dynamic>> taskList =
+                              await taskController
+                                  .getTasksByBoardId(boardId.toString());
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => DashboardTasks(
+                                list: [snapshot.data![index]],
+                                name: snapshot.data![index]['name'],
+                                taskList: taskList
+                                    .map((task) => task['title'].toString())
+                                    .toList(),
+                              ),
+                            ),
+                          );
+                        },
+                        child: Board(snapshot.data![index], context),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ));
       }
     },
   );
