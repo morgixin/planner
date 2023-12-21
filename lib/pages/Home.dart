@@ -47,44 +47,49 @@ class _HomePageState extends State<HomePage> {
         foregroundColor: Colors.white,
         toolbarHeight: 140,
         title: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    "Bom dia,",
-                    style: TextStyle(
-                        color: Color.fromRGBO(255, 255, 255, 0.7),
-                        fontWeight: FontWeight.w300,
-                        fontSize: 18),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "Bom dia,",
+                        style: TextStyle(
+                            color: Color.fromRGBO(255, 255, 255, 0.7),
+                            fontWeight: FontWeight.w300,
+                            fontSize: 18),
+                      ),
+                      Text(
+                        "${widget.user!.name}!",
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.onBackground,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 28),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Text(
+                        "Confira seus quadros",
+                        style: TextStyle(
+                            color: Color.fromRGBO(255, 255, 255, 0.7),
+                            fontWeight: FontWeight.w300,
+                            fontSize: 18),
+                      )
+                    ],
                   ),
-                  Text( "${widget.user!.name}!",
-                    style: TextStyle(
-                        color: Theme.of(context).colorScheme.onBackground,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 28),
+                  IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => SearchPage()),
+                      );
+                    },
+                    icon: Icon(Icons.search),
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Text(
-                    "Confira seus quadros",
-                    style: TextStyle(
-                        color: Color.fromRGBO(255, 255, 255, 0.7),
-                        fontWeight: FontWeight.w300,
-                        fontSize: 18),
-                  )
-                ],
-              ),
-              IconButton(
-                  onPressed: () => print('pesquisa clicada'),
-                  icon: Icon(Icons.search)),
-            ],
-          ),
-        ),
+                ])),
       ),
       body: Container(
           padding: const EdgeInsets.only(top: 20),
@@ -99,11 +104,13 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: Visibility(
         visible: isVisible,
         child: FloatingActionButton(
-          onPressed: () { 
+          onPressed: () {
             if (_selectedIndex == 0) {
-              Navigator.push(context,  MaterialPageRoute(builder: (context) => BoardCreator()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => BoardCreator()));
             } else {
-              Navigator.push(context,  MaterialPageRoute(builder: (context) => EventCreator()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => EventCreator()));
             }
           },
           tooltip: 'Add new event',
