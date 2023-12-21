@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:planner/pages/widgets/NewEvent.dart';
 import 'package:planner/pages/widgets/Tasks.dart';
+import 'package:planner/model/User.dart';
 
 class DashboardTasks extends StatefulWidget {
   final List<dynamic>? list;
   final String? name;
   final List<dynamic>? taskList;
+  final User? user;
 
-  DashboardTasks({Key? key, this.list, this.name, this.taskList});
+  DashboardTasks({Key? key, this.list, this.name, this.taskList, this.user});
 
   @override
   State<DashboardTasks> createState() => _DashboardTasksState();
@@ -73,7 +75,7 @@ class _DashboardTasksState extends State<DashboardTasks> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => EventCreator(),
+              builder: (context) => EventCreator(user: widget.user!),
             ),
           );
         },

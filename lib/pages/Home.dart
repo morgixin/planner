@@ -9,7 +9,7 @@ import 'package:planner/pages/widgets/Concluded.dart';
 import '../model/User.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key, this.user});
+  const HomePage({super.key, required this.user});
   final User? user;
 
   @override
@@ -27,9 +27,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     List<Widget> _widgetOptions = <Widget>[
-      Boards(),
-      Next(),
-      Concluded(),
+      Boards(context),
+      Next(context),
+      Concluded(context),
       Profile(context),
     ];
 
@@ -100,8 +100,10 @@ class _HomePageState extends State<HomePage> {
         visible: isVisible,
         child: FloatingActionButton(
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => EventCreator()));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => EventCreator(user: widget.user!)));
           },
           tooltip: 'Add new event',
           child: const Icon(Icons.add),

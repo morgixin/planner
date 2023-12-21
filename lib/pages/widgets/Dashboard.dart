@@ -5,7 +5,7 @@ import 'package:planner/pages/DashboardTasks.dart';
 
 TaskPlannerController taskController = TaskPlannerController();
 
-Widget Boards() {
+Widget Boards(BuildContext context) {
   return FutureBuilder<List<Map<String, dynamic>>>(
     future: taskController.getAllTaskBoards(),
     builder: (context, snapshot) {

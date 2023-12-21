@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 
-Widget DoneTasks(List<List<String>> list) {
+Widget DoneTasks(List<Map<String, dynamic>> list) {
   return Container(
-    decoration: const BoxDecoration(color: Colors.white, 
-      borderRadius: 
-        BorderRadius.only(
-          topLeft: Radius.circular(18),
-          topRight: Radius.circular(18),),
+    decoration: const BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(18),
+        topRight: Radius.circular(18),
       ),
-    child: Center (
+    ),
+    child: Center(
       child: ListView.builder(
-        itemCount: list.length,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.only(left:18, right:18, top:18),
-            child: _DoneTask(list[index], context),
-          );
-        }),
+          itemCount: list.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.only(left: 18, right: 18, top: 18),
+              child: _DoneTask(list[index], context),
+            );
+          }),
     ),
   );
 }
-
 
 Widget _DoneTask(list, context) {
   Color? colour;
@@ -56,34 +56,40 @@ Widget _DoneTask(list, context) {
               decoration: BoxDecoration(
                 color: colour,
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(8), 
-                  bottomLeft: Radius.circular(8), ),
+                  topLeft: Radius.circular(8),
+                  bottomLeft: Radius.circular(8),
+                ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 24),
-              child: 
-                  SizedBox (
-                    height: 73,
-                    width: MediaQuery.of(context).size.width*0.8,
-                    child: ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: list.length,
-                      itemBuilder: (c, index) {
-                        if (index != 0) {
-                          if (index == 1) {
-                            return Text( list[index], 
-                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, decoration: TextDecoration.lineThrough),);
-                          }
-                          return Text(list[index]);
-                        }
-                        return const SizedBox.shrink();
-                      },
-                    ),
-                  ),)
-                ],
+              child: SizedBox(
+                height: 73,
+                width: MediaQuery.of(context).size.width * 0.8,
+                child: ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: list.length,
+                  itemBuilder: (c, index) {
+                    if (index != 0) {
+                      if (index == 1) {
+                        return Text(
+                          list[index],
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                              decoration: TextDecoration.lineThrough),
+                        );
+                      }
+                      return Text(list[index]);
+                    }
+                    return const SizedBox.shrink();
+                  },
+                ),
               ),
-            ),
+            )
           ],
+        ),
+      ),
+    ],
   );
 }

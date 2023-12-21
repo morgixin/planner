@@ -1,10 +1,10 @@
 class TaskBoard {
-  int id;
+  int? id;
   String name;
   String color;
 
   TaskBoard({
-    required this.id,
+    this.id,
     required this.name,
     required this.color,
   });

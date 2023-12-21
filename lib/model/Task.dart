@@ -1,19 +1,21 @@
 class Task {
   int? id;
-  int? user_id;
-  int? board_id;
+  int user_id;
+  int board_id;
   late String note;
   DateTime? date;
-  DateTime? startTime;
-  DateTime? endTime;
+  String? startTime;
+  String? endTime;
   bool? isCompleted;
   late String title;
 
-  Task(this.title, this.note, this.date, 
-    this.startTime, this.endTime, {isCompleted = 0});
+  Task(this.user_id, this.board_id, this.title, this.note, this.date,
+      this.startTime, this.endTime,
+      {isCompleted = 0});
 
   Task.fromMap(Map map) {
     this.id = map["id"];
+    this.board_id = map["board_id"];
     this.title = map["title"];
     this.isCompleted = map["done"];
     this.note = map["note"];
@@ -21,7 +23,6 @@ class Task {
     this.startTime = map["startTime"];
     this.endTime = map["endTime"];
     this.user_id = map["user_id"];
-    this.board_id = map["id"];
   }
 
   Map<String, dynamic> toMap() {

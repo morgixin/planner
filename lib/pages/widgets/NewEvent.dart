@@ -4,37 +4,44 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:planner/controller/TaskController.dart';
 import 'package:planner/model/Task.dart';
+import 'package:planner/model/User.dart';
+import 'package:planner/model/TaskBoard.dart';
 
 class EventCreator extends StatefulWidget {
-  EventCreator({super.key});
+  final User user;
+  EventCreator({super.key, required this.user});
 
   @override
   State<EventCreator> createState() => _EventCreatorState();
 }
 
 class _EventCreatorState extends State<EventCreator> {
-  DateTime dateTime = DateTime.now();
-  TextEditingController titleController = TextEditingController();
-  TextEditingController descriptionController = TextEditingController();
-  TextEditingController categoryController = TextEditingController();
+  DateTime dateStart = DateTime.now();
+  DateTime dateEnd = DateTime.now();
+  TextEditingController _titleController = TextEditingController();
+  TextEditingController _noteController = TextEditingController();
+  TextEditingController _categoryController = TextEditingController();
+  TextEditingController _dateController = TextEditingController();
+  TextEditingController _startTimeController = TextEditingController();
+  TextEditingController _endTimeController = TextEditingController();
 
-  TaskPlannerController taskController = TaskPlannerController();
+  late TaskPlannerController taskController;
 
-  void saveTask() async {
-    // Obtenha os valores dos controladores e crie uma nova tarefa
-    String title = titleController.text;
-    String description = descriptionController.text;
-    String category = categoryController.text;
+  int? verificarBoard(String name) {
+    TaskBoard res = taskController.getBoardByName(name) as TaskBoard;
+    if (res.name == name) {
+      return res.id;
+    } else {
+      taskController.addBoard(TaskBoard(
+          name: name, color: Theme.of(context).colorScheme.primary.toString()));
+      return (taskController.getBoardByName(name) as TaskBoard).id;
+    }
+  }
 
-    // Suponhamos que você tenha o user_id disponível no contexto
-    int userId = 6; // Substitua 1 pelo valor real do user_id
-    Task task = Task(title, description, dateTime, null, null, isCompleted: 0)
-      ..user_id = userId; // Atribua o user_id à tarefa
-
-    // Adicione a nova tarefa
-    await taskController.addTask(task);
-
-    // Restante do código para atualizações na interface do usuário ou navegação
+  @override
+  void initState() {
+    super.initState();
+    taskController = TaskPlannerController();
   }
 
   @override
@@ -72,7 +79,7 @@ class _EventCreatorState extends State<EventCreator> {
                 child: CupertinoButton(
                   color: Colors.white,
                   child: Text(
-                    '${dateTime.day}/${dateTime.month} - ${dateTime.hour}:${dateTime.minute}',
+                    '${dateStart.day}/${dateStart.month} - ${dateStart.hour}:${dateStart.minute}',
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.background,
                       fontSize: 18,
@@ -93,9 +100,13 @@ class _EventCreatorState extends State<EventCreator> {
                           ),
                         ),
                         child: CupertinoDatePicker(
-                          initialDateTime: dateTime,
+                          initialDateTime: dateStart,
                           onDateTimeChanged: (DateTime newTime) {
-                            setState(() => dateTime = newTime);
+                            setState(() => dateStart = newTime);
+                            _dateController.text =
+                                "${newTime.year.toString()}-${newTime.month.toString()}-${newTime.day.toString()}";
+                            _startTimeController.text =
+                                "${newTime.hour.toString()}:${newTime.minute.toString()}:${newTime.second.toString()}";
                           },
                           use24hFormat: true,
                           mode: CupertinoDatePickerMode.dateAndTime,
@@ -118,7 +129,7 @@ class _EventCreatorState extends State<EventCreator> {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
-                    controller: titleController,
+                    controller: _titleController,
                     decoration: InputDecoration(
                       fillColor: Colors.grey,
                       border: OutlineInputBorder(
@@ -146,7 +157,7 @@ class _EventCreatorState extends State<EventCreator> {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
-                    controller: descriptionController,
+                    controller: _noteController,
                     decoration: InputDecoration(
                       hintText: 'Digite uma descrição breve',
                       border: OutlineInputBorder(
@@ -173,7 +184,7 @@ class _EventCreatorState extends State<EventCreator> {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
-                    controller: categoryController,
+                    controller: _categoryController,
                     decoration: InputDecoration(
                       hintText: 'Diga uma categoria para o evento',
                       border: OutlineInputBorder(
@@ -199,7 +210,14 @@ class _EventCreatorState extends State<EventCreator> {
                     ),
                   ),
                 ),
-                onPressed: saveTask,
+                onPressed: () => taskController.addTask(Task(
+                    widget.user.id!,
+                    verificarBoard(_categoryController.text)!,
+                    _titleController.text,
+                    _noteController.text,
+                    DateTime(dateStart.year, dateStart.month, dateStart.day),
+                    "${dateStart.hour}:${dateStart.minute}:${dateStart.second}",
+                    "${dateEnd.hour}:${dateEnd.minute}:${dateEnd.second}")),
                 child: Text(
                   "Salvar",
                   style: TextStyle(
