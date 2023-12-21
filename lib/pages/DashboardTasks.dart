@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:planner/pages/widgets/NewEvent.dart';
 import 'package:planner/pages/widgets/Tasks.dart';
+import 'package:planner/pages/SearchPage.dart';
 
 class DashboardTasks extends StatefulWidget {
   final List<dynamic>? list;
