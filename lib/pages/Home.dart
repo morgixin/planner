@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:planner/pages/SearchPage.dart';
-
+import 'package:planner/pages/NewTaskBoard.dart';
 import 'package:planner/pages/widgets/NewEvent.dart';
 import 'package:planner/pages/widgets/Profile.dart';
 import 'package:planner/pages/widgets/Next.dart';
@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
     ];
 
     bool isVisible = true;
-    if (_selectedIndex == 3) {
+    if (_selectedIndex >= 2) {
       isVisible = false;
     } else
       isVisible = true;
@@ -61,8 +61,7 @@ class _HomePageState extends State<HomePage> {
                         fontWeight: FontWeight.w300,
                         fontSize: 18),
                   ),
-                  Text(
-                    "${widget.user!.name}!",
+                  Text( "${widget.user!.name}!",
                     style: TextStyle(
                         color: Theme.of(context).colorScheme.onBackground,
                         fontWeight: FontWeight.bold,
@@ -100,9 +99,12 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: Visibility(
         visible: isVisible,
         child: FloatingActionButton(
-          onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => EventCreator()));
+          onPressed: () { 
+            if (_selectedIndex == 0) {
+              Navigator.push(context,  MaterialPageRoute(builder: (context) => BoardCreator()));
+            } else {
+              Navigator.push(context,  MaterialPageRoute(builder: (context) => EventCreator()));
+            }
           },
           tooltip: 'Add new event',
           child: const Icon(Icons.add),
