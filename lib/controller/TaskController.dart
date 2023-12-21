@@ -28,7 +28,7 @@ class TaskPlannerController {
   }
 
   // Criar novo quadro de tarefas
-  createTaskBoard(String name, int color) async {
+  createTaskBoard(String name, String color) async {
     var db = await dbHelper.db;
     String sql = "INSERT INTO task_board(name, color) VALUES(?, ?)";
     List<dynamic> values = [name, color];
